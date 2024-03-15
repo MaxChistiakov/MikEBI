@@ -7,6 +7,8 @@ import {
 </script>
 
 <template>
-    <BaseHeader />
-    <BaseTask />
+    <v-container class="w-75">
+        <BaseHeader />
+        <BaseTask />
+    </v-container>
 </template>

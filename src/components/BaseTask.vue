@@ -3,48 +3,51 @@
     v-if="isShow"
     @closeModal="toggleModal"
   />
-  <div class="base-task d-flex flex-column">
-    <div class="task-header d-flex align-center justify-space-between mb-4">
-      <BaseButton
-     > 
-      <img src="../assets/close_btn.png" alt="">
-    </BaseButton>
-     <div 
+  <v-container>
+    <div class="base-task d-flex flex-column">
+      <v-row class="task-header d-flex align-center justify-space-between mb-4">
+        <BaseButton
+        > 
+          <img src="../assets/close_btn.png" alt="">
+        </BaseButton>
+        <div 
           class="task-condition"
         >{{ taskCondition }}
         </div>
-    <BaseButton
-        @click="toggleModal"
-     >
-      <img src="../assets/bulb.png" alt="">
-    </BaseButton>
+        <BaseButton
+          @click="toggleModal"
+        >
+          <img src="../assets/bulb.png" alt="">
+        </BaseButton>
+      </v-row>
+      <v-row>
+        <v-col class="task-description d-flex flex-column align-center justify-space-between ga-16">
+          <div class="task-text">
+            {{ taskStore.taskText }}
+          </div>
+          <div class="task-image">
+            <img :src="taskImage"/> 
+          </div>
+          <v-row class="task-answers d-flex justify-center align-center ga-11 xs-3">
+            <v-col cols="12" md="8" xs="12" class="d-flex row justify-center ga-10">
+              <BaseRadioButton
+                v-for="button in answerOptions"
+                v-model="checkedRadio"
+                @checkRadioButton="getCheckValue"
+                :label="button"
+                :value="button"
+                :name="button"
+              />
+            </v-col>
+            <BaseButton 
+              name="Check"
+              @click="checkAnswers"
+            />
+          </v-row>
+        </v-col>
+      </v-row>
     </div>
-    <div class="task-description d-flex flex-column align-center justify-space-between">
-      <div class="task-text">
-        {{ taskStore.taskText }}
-      </div>
-
-      <div class="task-image">
-        <img :src="taskImage"/> 
-      </div>
-
-      <div class="task-answers d-flex justify-center align-center ga-11">
-        <BaseRadioButton
-          v-for="button in answerOptions"
-          v-model="checkedRadio"
-          @checkRadioButton="getCheckValue"
-          :label="button"
-          :value="button"
-          :name="button"
-        />
-        <BaseButton 
-          name="Check"
-          @click="checkAnswers"
-        />
-      </div>
-
-    </div>
-  </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -96,13 +99,8 @@ const {
 </script>
 
 <style scoped>
-.base-task {
-  width: 1280px;
 
-}
-
-.task-description {
-  height: calc(100vh - 60vh);
+.task-text {
   font-size: 25px;
   font-weight: 300;
 }
